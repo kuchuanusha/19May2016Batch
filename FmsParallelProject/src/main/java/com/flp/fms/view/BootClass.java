@@ -1,6 +1,12 @@
 package com.flp.fms.view;
 import java.util.Scanner;
 
+
+import com.flp.fms.Exceptions.FieldEmptyException;
+
+import com.flp.fms.Exceptions.NegativeFieldException;
+import com.flp.fms.Exceptions.RecordNotFoundException;
+
 import java.text.ParseException;
 
 public class BootClass {
@@ -8,11 +14,11 @@ public class BootClass {
 	private static Scanner sc=new Scanner(System.in);
 	static UserInteraction userinteraction=new UserInteraction();
 
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) throws ParseException, FieldEmptyException, NegativeFieldException, RecordNotFoundException {
 		showMenu();
 	}
-	private static void showMenu()  throws ParseException {
-		int choice;
+	private static void showMenu()  throws ParseException,  FieldEmptyException, NegativeFieldException, RecordNotFoundException {
+		int choice,i;
 		while(true)
 		{
 			System.out.println("1.add film");
@@ -52,9 +58,13 @@ public class BootClass {
 			case 10:userinteraction.getAllActors();
 			        break;
 			case 11:System.exit(0);
-			       
+			   
+			default:System.out.println("recheck your program");
+			
 			}
+			
 		}
 		
 	}
 }
+

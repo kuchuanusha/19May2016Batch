@@ -3,8 +3,11 @@ package com.flp.fms.view;
 
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -12,7 +15,11 @@ import javax.persistence.EntityManager;
 //import javax.persistence.TypedQuery;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
+import com.flp.fms.Exceptions.FieldEmptyException;
+import com.flp.fms.Exceptions.NegativeFieldException;
+import com.flp.fms.Exceptions.RecordNotFoundException;
 import com.flp.fms.domain.*;
 
 import com.flp.fms.service.*;
@@ -23,7 +30,7 @@ import java.text.SimpleDateFormat;
 
 public class UserInteraction  {
 
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 	IFilmService filmService;
 	IActorService actorService;
 	
@@ -38,77 +45,150 @@ public class UserInteraction  {
 	
 	private static Scanner sc=new Scanner(System.in);
 
-	public void addFilm() throws ParseException
+	public void addFilm() throws ParseException, FieldEmptyException, NegativeFieldException
 	{
 		
-		List filmList=new ArrayList();
+		Map<Integer,Object> filmList=new HashMap();
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		
 		System.out.println("Enter title");
-		filmList.add(sc.next());
+		filmList.put(1,sc.next());
 		
 		System.out.println("Enter description");
-		filmList.add(sc.next());
+		filmList.put(2,sc.next());
 		
 		System.out.println("Enter release date");
 		
-		filmList.add(dateFormat.parse(sc.next()));
+		filmList.put(3,dateFormat.parse(sc.next()));
 		
 		System.out.println("Enter rental duration");
-		filmList.add(sc.nextShort());
+		filmList.put(4,sc.nextInt());
 		
 		System.out.println("Enter rental rate");
-		filmList.add(sc.nextInt());
+		filmList.put(5,sc.nextDouble());
 		
 		System.out.println("Enter length of the movie");
-		filmList.add(sc.nextShort());
+		filmList.put(6,sc.nextInt());
 		
 		System.out.println("Enter replacement cost");
-		filmList.add(sc.nextInt());
+		filmList.put(7,sc.nextDouble());
 		
 		System.out.println("Enter rating");
-		filmList.add(sc.next());
+		filmList.put(8,sc.nextDouble());
 		
 		System.out.println("Enter special features");
-		filmList.add(sc.next());
+		filmList.put(9,sc.next());
 		
 		//Language language=new Language();
 		System.out.println("Enter language name");
-		filmList.add(sc.next());
+		filmList.put(10,sc.next());
 		
 		
 		
 		System.out.println("Enter category name");
-		filmList.add(sc.next());
-				
-		Set<Actor> actor = new HashSet<Actor>();
+		filmList.put(11,sc.next());
+	int j=12;
 		System.out.println("enter no of actors");
 		int noofactors=sc.nextInt();
 		for(int i=1;i<=noofactors;i++){
-			List actorDetails=new ArrayList();
+			Map<Integer,Object> actorDetails=new HashMap();
 			System.out.println("Enter the actor first name");
-			actorDetails.add(sc.next());
+			actorDetails.put(1,sc.next());
 			System.out.println("Enter the actor last name");
-			actorDetails.add(sc.next());
-			filmList.add(actorDetails);
-			
+			actorDetails.put(2,sc.next());
+			filmList.put(j,actorDetails);
+			j++;
 		}
-		filmService.addFilm(filmList);
+		System.out.println(filmService.addFilm(filmList));
 	}
 	
 	
-	public void modifyFilm() throws ParseException{
+	public void modifyFilm() throws ParseException,IllegalArgumentException, RecordNotFoundException{
 		
-		//Film film=userinteraction.searchFilmByName();
 		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		Map<Integer,Object> newDetails=new HashMap();
+		System.out.println("enter title,releaseyear and rating of the film to modify");
+		 String titlePrevious=sc.next();
+		 Date releaseYearp=dateFormat.parse(sc.next());
+		 Double ratingPrevious=sc.nextDouble();
+		newDetails.put(1,titlePrevious);
+		newDetails.put(2,releaseYearp);
+		newDetails.put(3,ratingPrevious);
+		System.out.println("enter choice to modify 1.title 2.description 3.language 4.rental_duration 5.rental_rate 6.length 7.replacement_cost 8.rating 9.special_features 10.category");
+		int choice=sc.nextInt();
+		switch(choice){
+		
+		case 1:System.out.println("enter new title");
+		       String title=sc.next();
+			   newDetails.put(4, title);
+			   System.out.println(filmService.modifyFilm(newDetails));
+			   break;
+			   
+		case 2:System.out.println("enter new description");
+	       		String description=sc.next();
+		   		newDetails.put(5, description);
+		   		System.out.println(filmService.modifyFilm(newDetails));
+		   		break;
+		   		
+		case 3:System.out.println("enter new language");
+		       String language=sc.next();
+   				newDetails.put(6, language);
+   				System.out.println(filmService.modifyFilm(newDetails));
+   				break;
+   				
+		case 4:System.out.println("enter new rental_duration");
+	       		int rentalDuration=sc.nextInt();
+	       		newDetails.put(7, rentalDuration);
+	       		System.out.println(filmService.modifyFilm(newDetails));
+	       		break;
+		case 5:System.out.println("enter new rental_rate");
+   				Double rentalRate=sc.nextDouble();
+   				newDetails.put(8, rentalRate);
+   				System.out.println(filmService.modifyFilm(newDetails));
+   				break;
+		case 6:System.out.println("enter new length");
+   				int length=sc.nextInt();
+   				newDetails.put(9, length);
+   				System.out.println(filmService.modifyFilm(newDetails));
+   				break;
+		
+		case 7:System.out.println("enter new replacement cost");
+				Double replacementCost=sc.nextDouble();
+				newDetails.put(10, replacementCost);
+				System.out.println(filmService.modifyFilm(newDetails));
+				break;		
+   				
+   				
+		case 8:System.out.println("enter new rating");
+				Double rating=sc.nextDouble();
+				newDetails.put(11, rating);
+				System.out.println(filmService.modifyFilm(newDetails));
+				break;
+				
+				
+		case 9:System.out.println("enter new special features");
+   				String specialFeatures=sc.next();
+   				newDetails.put(12, specialFeatures);
+   				System.out.println(filmService.modifyFilm(newDetails));
+   				break;
+		case 10:System.out.println("enter new Category");
+	           String category=sc.next();
+			   newDetails.put(13, category);
+			   System.out.println(filmService.modifyFilm(newDetails));
+			   break;
+		}
 		
 		
 	}
-	public void removeFilm(){
+
+
+
+	public void removeFilm() throws FieldEmptyException, NegativeFieldException, RecordNotFoundException{
 		System.out.println("enter id of the film to search");
-		int film_id=sc.nextInt();
-		if(filmService.removeFilm(film_id))
+		int filmId=sc.nextInt();
+		if(filmService.removeFilm(filmId))
 		{
 			System.out.println("film Successfully removed");
 		}
@@ -117,10 +197,10 @@ public class UserInteraction  {
 			System.out.println("film Not Found");
 		}
 	}
-	public void searchFilm(){
+	public void searchFilm() throws FieldEmptyException, NegativeFieldException, RecordNotFoundException{
 		System.out.println("enter id of the film to search");
-		int film_id=sc.nextInt();
-		Film film=filmService.searchFilm(film_id);
+		int filmId=sc.nextInt();
+		Film film=filmService.searchFilm(filmId);
 		if(film!=null)
 			System.out.println("film found"+film);
 		else
@@ -131,21 +211,19 @@ public class UserInteraction  {
 		System.out.println("All films details are "+films);
 		
 	}
-	public Actor addActor(){
-	
-		System.out.println("enter first name");
-		String first_name=sc.next();
-		
-		System.out.println("enter last name");
-		String last_name=sc.next();
-		
-		                           
-		return actorService.addActor(first_name,last_name);
+	public Actor addActor() throws FieldEmptyException{
+		Actor actor=new Actor();
+		System.out.println("Enter the actor first name");
+		String firstName=sc.next();
+		System.out.println("Enter the actor last name");
+		String lastName=sc.next();
+		System.out.println("Actor added successfully");
+		return actorService.addActor(firstName,lastName);
 	}
-	public void removeActor(){
+	public void removeActor() throws NegativeFieldException, FieldEmptyException, RecordNotFoundException{
 		System.out.println("enter id of the actor to search");
-		int actor_id=sc.nextInt();
-		if(actorService.removeActor(actor_id))
+		int actorId=sc.nextInt();
+		if(actorService.removeActor(actorId))
 		{
 			System.out.println("Actor Successfully removed");
 		}
@@ -156,18 +234,29 @@ public class UserInteraction  {
 		
 	}
 	
-	public void searchActor(){
-		System.out.println("enter id of the film to search");
-		int actor_id=sc.nextInt();
-		Actor actor=actorService.searchActor(actor_id);
+	public void searchActor() throws RecordNotFoundException, NegativeFieldException, FieldEmptyException{
+		System.out.println("enter id of the actor to search");
+		int actorId=sc.nextInt();
+		Actor actor=actorService.searchActor(actorId);
 		if(actor!=null)
 			System.out.println("actor found"+actor);
 		else
 			System.out.println("not found");
 	}
 
-	public void modifyActor(){
-		//System.out.println("enter id of the film to modify");
+	public void modifyActor() throws RecordNotFoundException{
+		Map<Integer,Object> actorList=new HashMap();
+		
+		System.out.println("enter id of the actor to modify");
+		actorList.put(1,sc.nextInt());
+		System.out.println("Enter firstname");
+		actorList.put(2,sc.next());
+		
+		System.out.println("Enter  lastname");
+		actorList.put(3,sc.next());
+		
+		System.out.println(actorService.modifyActor(actorList));
+		
 		//Actor actor=userinteraction.searchActorByName();
 	}
 	public void getAllActors(){
@@ -175,77 +264,8 @@ public class UserInteraction  {
 		System.out.println("All films details are "+actors);
 		
 	}
-	/*public Film searchFilmByName(){
-		System.out.println("enter name of the film to search");
-		String name=sc.next();
-		Film film=actorService.searchFilmByName();
-		retun film;
-	}
+
 	
-	public Film searchFilmByActor(){
-		System.out.println("enter name of the Actor to search");
-		String name=sc.next();
-		Film film=actorService.searchFilmByActor();
-		retun film;
-	}
-	public List<Film> searchFilmByCategory(){
-		System.out.println("enter name of the Category to search");
-		String category=sc.next();
-		TypedQuery<Film> query = em.createQuery("Select film from Film film",Film.class);
-		List<Film> filmSet=new ArrayList() ;
-		for(Film film:query.getResultList())
-		{
-			if(film.getCategory().equals(category))
-			{
-				filmSet.add(film);
-			}
-		}
-		return filmSet;
-	}
-	public Film[] searchFilmByLanguage(){
-		System.out.println("enter name of the language to search");
-		String language=sc.next();
-		Film[] film=filmService.searchFilmByLanguage();
-		retun film;
-	}
-	public List<Film> searchFilmByRating(){
-		System.out.println("enter name of the Category to search");
-		String rating=sc.next();
-		TypedQuery<Film> query = em.createQuery("Select film from Film film where film.rating=rating",Film.class);
-		List<Film> filmSet=new ArrayList() ;
-		for(Film film:query.getResultList())
-		{
-			
-				
-				filmSet.add(film);
-			
-		}
-		return filmSet;
-	}
-	public Language findLanguageByName(String language_name){
-		TypedQuery<Language> query = em.createQuery("Select lang from Language lang",Language.class);
-		
-		for(Language lang:query.getResultList())
-		{
-			if(lang.getName().equals(language_name))
-			{
-				return lang;
-			}
-		}
-		return null;
-	}
 	
-	public Category findCategoryByName(String category_name){
-		TypedQuery<Category> query = em.createQuery("Select c from Category c",Category.class);
-		
-		for(Category c:query.getResultList())
-		{
-			if(c.getName().equals(category_name))
-			{
-				return c;
-			}
-		}
-		return null;
-	}*/
 	
 }

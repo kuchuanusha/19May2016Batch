@@ -8,15 +8,17 @@ import javax.persistence.*;
 @Entity
 public class Language {
 	
+	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable=false)
-	private int language_id;
+	private int languageId;
 	
 	private String name;
 	
-	@Column(insertable = false, updatable = false,nullable=false,columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@Column(insertable = false, updatable = true,nullable=true,columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date last_update;
+	private Date lastUpdate;
+	
 	
 	@OneToMany(mappedBy="language")
 	private Set<Film> films;
@@ -29,11 +31,11 @@ public class Language {
 		this.name = name;
 	}
 	
-	public int getLanguage_id() {
-		return language_id;
+	public int getLanguageId() {
+		return languageId;
 	}
-	public void setLanguage_id(int language_id) {
-		this.language_id = language_id;
+	public void setLanguageId(int languageId) {
+		this.languageId = languageId;
 	}
 	
 	public String getName() {
@@ -43,11 +45,11 @@ public class Language {
 		this.name = name;
 	}
 	
-	public Date getLast_update() {
-		return last_update;
+	public Date getLastUpdate() {
+		return lastUpdate;
 	}
-	public void setLast_update(Date last_update) {
-		this.last_update = last_update;
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 	public Set<Film> getFilms() {
 		return films;
@@ -55,5 +57,10 @@ public class Language {
 	public void setFilms(Set<Film> films) {
 		this.films = films;
 	}
+	@Override
+	public String toString() {
+		return "Language [languageId=" + languageId + ", name=" + name + ", lastUpdate=" + lastUpdate + "]";
+	}
+	
 	
 }

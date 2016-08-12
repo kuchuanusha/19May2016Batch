@@ -8,15 +8,17 @@ import javax.persistence.*;
 @Entity
 public class Category {
 
+	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable=false)
-	private int category_id;
+	private int categoryId;
 	
 	private String name;
 	
-	@Column(nullable=false,columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@Column(nullable=true,columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date last_update;
+	private Date lastUpdate;
+	
 	
 	@OneToMany(mappedBy="category")
 	private Set<Film> films=new HashSet<Film>();
@@ -32,11 +34,11 @@ public class Category {
 	}
 	
 	
-	public int getCategory_id() {
-		return category_id;
+	public int getCategoryId() {
+		return categoryId;
 	}
-	public void setCategory_id(int category_id) {
-		this.category_id = category_id;
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 	public String getName() {
 		return name;
@@ -44,17 +46,21 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Date getLast_update() {
-		return last_update;
+	public Date getLastUpdate() {
+		return lastUpdate;
 	}
-	public void setLast_update(Date last_update) {
-		this.last_update = last_update;
+	public void setLast_update(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 	public Set<Film> getFilms() {
 		return films;
 	}
 	public void setFilms(Set<Film> films) {
 		this.films = films;
+	}
+	@Override
+	public String toString() {
+		return "Category [categoryId=" + categoryId + ", name=" + name + "]";
 	}
 	
 	

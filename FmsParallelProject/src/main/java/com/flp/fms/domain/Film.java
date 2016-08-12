@@ -9,38 +9,41 @@ import javax.persistence.*;
 @Entity
 public class Film {
 
+
+
+
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable=false)
-	private int film_id;
+	private int filmId;
 	
 	private String title;
 	private String description;
 	
 	@Column(nullable=false)
 	@Temporal(TemporalType.DATE)
-	private Date release_year;
+	private Date releaseYear;
 	
 	@ManyToOne(cascade = {CascadeType.ALL})
-	@JoinColumn(name="language_id")
+	@JoinColumn(name="languageId")
 	private Language language;
 	
-	private int rental_duration;
-	private double rental_rate;
+	private int rentalDuration;
+	private double rentalRate;
 	private int length;
-	private double replacement_cost;
+	private double replacementCost;
 	private double rating;
-	private String special_features;
+	private String specialFeatures;
 	
-	@Column(nullable=false,columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@Column(nullable=true,columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date last_update;
+	private Date lastUpdate;
 	
 	@ManyToMany(cascade = {CascadeType.ALL})
-	@JoinTable(name = "film_actor", joinColumns = @JoinColumn(name = "film_id", referencedColumnName = "film_id") , inverseJoinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "actor_id"))
+	@JoinTable(name = "filmActor", joinColumns = @JoinColumn(name = "filmId", referencedColumnName = "filmId") , inverseJoinColumns = @JoinColumn(name = "actorId", referencedColumnName = "actorId"))
 	private Set<Actor> actors = new HashSet<Actor>();
 	
 	@ManyToOne(cascade = {CascadeType.ALL})
-	@JoinTable(name = "film_category", joinColumns = @JoinColumn(name = "film_id", referencedColumnName = "film_id") , inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "category_id"))
+	@JoinTable(name = "filmCategory", joinColumns = @JoinColumn(name = "filmId", referencedColumnName = "filmId") , inverseJoinColumns = @JoinColumn(name = "categoryId", referencedColumnName = "categoryId"))
 	private Category category;
 	
 	public Film() {
@@ -48,11 +51,11 @@ public class Film {
 	}
 	
 	
-	public int getFilm_id() {
-		return film_id;
+	public int getFilmId() {
+		return filmId;
 	}
-	public void setFilm_id(int film_id) {
-		this.film_id = film_id;
+	public void setFilm_id(int filmId) {
+		this.filmId = filmId;
 	}
 	
 	public String getTitle() {
@@ -70,12 +73,12 @@ public class Film {
 	}
 	
 	
-	public Date getRelease_year() {
-		return release_year;
+	public Date getReleaseYear() {
+		return releaseYear;
 	}
 
-	public void setRelease_year(Date release_year) {
-		this.release_year = release_year;
+	public void setReleaseYear(Date releaseYear) {
+		this.releaseYear = releaseYear;
 	}
 
 	
@@ -86,18 +89,18 @@ public class Film {
 		this.language = language;
 	}
 	
-	public int getRental_duration() {
-		return rental_duration;
+	public int getRentalDuration() {
+		return rentalDuration;
 	}
-	public void setRental_duration(int rental_duration) {
-		this.rental_duration = rental_duration;
+	public void setRentalDuration(int rentalDuration) {
+		this.rentalDuration = rentalDuration;
 	}
 	
-	public double getRental_rate() {
-		return rental_rate;
+	public double getRentalRate() {
+		return rentalRate;
 	}
-	public void setRental_rate(double rental_rate) {
-		this.rental_rate = rental_rate;
+	public void setRentalRate(double rentalRate) {
+		this.rentalRate = rentalRate;
 	}
 	
 	public int getLength() {
@@ -107,11 +110,11 @@ public class Film {
 		this.length = length;
 	}
 	
-	public double getReplacement_cost() {
-		return replacement_cost;
+	public double getReplacementCost() {
+		return replacementCost;
 	}
-	public void setReplacement_cost(double replacement_cost) {
-		this.replacement_cost = replacement_cost;
+	public void setReplacementCost(double replacementCost) {
+		this.replacementCost = replacementCost;
 	}
 	
 	public double getRating() {
@@ -121,19 +124,22 @@ public class Film {
 		this.rating = rating;
 	}
 	
-	public String getSpecial_features() {
-		return special_features;
+	public String getSpecialFeatures() {
+		return specialFeatures;
 	}
-	public void setSpecial_features(String special_features) {
-		this.special_features = special_features;
+	public void setSpecialFeatures(String specialFeatures) {
+		this.specialFeatures = specialFeatures;
 	}
 	
-	public Date getLast_update() {
-		return last_update;
+	public Date getLastUpdate() {
+		return lastUpdate;
 	}
 
+
+
+
 	public void setLast_update(Date last_update) {
-		this.last_update = last_update;
+		this.lastUpdate = lastUpdate;
 	}
 
 
@@ -142,6 +148,7 @@ public class Film {
 	}
 
 
+	
 	public void setActors(Set<Actor> actors) {
 		this.actors = actors;
 	}
@@ -155,6 +162,21 @@ public class Film {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Film [filmId=" + filmId + ", title=" + title + ", description=" + description + ", releaseYear="
+				+ releaseYear + ", language=" + language + ", rentalDuration=" + rentalDuration + ", rentalRate="
+				+ rentalRate + ", length=" + length + ", replacementCost=" + replacementCost + ", rating=" + rating
+				+ ", specialFeatures=" + specialFeatures + ", lastUpdate=" + lastUpdate + ", actors=" + actors
+				+ ", category=" + category + "]";
+	}
+
+
+
+
+	
 
 	
 	

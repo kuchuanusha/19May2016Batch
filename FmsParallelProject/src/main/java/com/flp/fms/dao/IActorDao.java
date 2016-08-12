@@ -8,10 +8,11 @@ import com.flp.fms.domain.Actor;
 
 public interface IActorDao {
 	
-	abstract  Actor addActor(String first_name,String last_name);
-	abstract  void modifyActor();
-	abstract boolean removeActor(int actor_id);
-	abstract  Actor searchActor(int actor_id);
-	abstract List<Actor> getAllActors();
+	  Actor addActor(Actor actor);
+  boolean modifyActor(Actor actor);
+	 boolean removeActor(int actorId);
+  Actor searchActor(int actorId);
+  List<Actor> getAllActors();
+	 Actor findActorByName(String firstName, String lastName);
 
 }

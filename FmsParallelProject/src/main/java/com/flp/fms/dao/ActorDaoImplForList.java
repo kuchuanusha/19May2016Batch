@@ -18,33 +18,43 @@ public class ActorDaoImplForList implements IActorDao {
 	private EntityManagerFactory emf;
 	
 	public ActorDaoImplForList() {
-		this.emf = Persistence.createEntityManagerFactory("hello");
-		this.em = emf.createEntityManager();
+		emf = Persistence.createEntityManagerFactory("hello");
+		em = emf.createEntityManager();
 	}
 	
 	
-	public Actor addActor(String first_name,String last_name)
+	public Actor addActor(Actor actor)
 	{
-		Actor actor=findActorByName(first_name);
-		if(actor == null)
+		Actor actor1=findActorByName(actor.getFirstName(),actor.getLastName());
+		if(actor1 == null)
 		{
-			actor=new Actor(first_name,last_name);
+			em.getTransaction().begin();
+			em.persist(actor);
+			em.getTransaction().commit();
+			return actor;
 		}
+		else
+		{
+			em.getTransaction().begin();
+			em.persist(actor1);
+			em.getTransaction().commit();
+			return actor1;
+		}
+	}
+	
+	public boolean modifyActor(Actor actor)
+	{
 		em.getTransaction().begin();
 		em.persist(actor);
 		em.getTransaction().commit();
-		return actor;
-	}
-	
-	public void modifyActor()
-	{
-		
+		return true;
 		
 	}
 
  
-	public boolean removeActor(int actor_id){
-		Actor actor=searchActor(actor_id);
+	public boolean removeActor(int actorId){
+		Actor actor=searchActor(actorId);
+		
 		if(actor!=null)
 		{
 			em.getTransaction().begin();
@@ -55,12 +65,21 @@ public class ActorDaoImplForList implements IActorDao {
 		else
 			return false;
     }
-	public Actor findActorByName(String first_name){
-		return em.find(Actor.class, first_name);
+	public Actor findActorByName(String first_name,String last_name){
+		TypedQuery<Actor> query = em.createQuery("Select a from Actor a",Actor.class);
+
+		for(Actor a:query.getResultList())
+		{
+			if(a.getFirstName().equals(first_name) && a.getLastName().equals(last_name))
+			{
+				return a;
+			}
+		}
+		return null;
 	}
 	
-	public Actor searchActor(int actor_id){
-		return em.find(Actor.class, actor_id);
+	public Actor searchActor(int actorId){
+		return em.find(Actor.class, actorId);
 		
 	}
  
