@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<script type="text/javascript" src="../script/angular.min.js"></script>
+<script type="text/javascript" src="../script/appConfig.js"></script>
+<script type="text/javascript" src="../script/appCtrl.js"></script>
+
+</head>
+<body ng-app="myApp">
+	
+
+	<div ng-controller="myCtrl">
+	<h3>{{result}}</h3>
+		<input type="text" ng-model="myNum" name="mathFunctions" />
+	enter firstname:
+	<input type="text" ng-model="firstName" name="firstName" />
+	<input type="text" ng-model="lastName" name="lastName" />
+	<input type="button" ng-model="concate" value="concate" ng-click="concate()" />
+	
+
+	</div>
+
+	
+
+
+
+
+</body>
+</html>

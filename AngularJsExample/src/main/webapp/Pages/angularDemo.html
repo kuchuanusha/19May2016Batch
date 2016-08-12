@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<script type="text/javascript" src="../script/angular.min.js"></script>
+<script type="text/javascript" src="../script/appConfig.js"></script>
+<script type="text/javascript" src="../script/appCtrl.js"></script>
+
+</head>
+<body ng-app="myApp">
+	
+
+	<div ng-controller="myCtrl">
+		
+	<form name="productForm">
+	<h3 align="center">Product Details</h3>
+		<table style="margin-left: 500px; border: 1px solid;">
+			<tr>
+				<td>Id:</td>
+				<td><input type="text" size="20" ng-model="Id" name="Id">
+			</tr>
+			<tr>
+				<td>productName:</td>
+				<td><input type="text" size="20" ng-model="productName" name="productName">
+			</tr>
+			<tr>
+				<td>Quantity:</td>
+				<td><input type="text" size="20" ng-model="quantity" name="quantity">
+			</tr>
+			
+			<tr>
+				<td>price:</td>
+				<td><input type="text" size="20" ng-model="price" name="price">
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<button name="calculate" ng-click="myFunc()">calculate</button>
+				</td>
+			</tr>
+			
+		</table>
+	</form>
+	
+	<div ng-show="showMe">
+	<h4>Hello customer! {{Id}}, {{productName}} , {{quantity}},  Price: {{price}} </h4>
+
+	<h4>Please pay: {{price*quantity}}</h4>
+	</div>
+</div>
+	
+</div>
+
+
+
+</body>
+</html>

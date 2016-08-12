@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<script type="text/javascript" src="../script/angular.min.js"></script>
+<script type="text/javascript" src="../script/appConfig.js"></script>
+<script type="text/javascript" src="../script/appFilterCtrl.js"></script>
+
+</head>
+<body ng-app="myApp">
+<div ng-controller="fCtrl">
+
+
+
+	<table>
+		<tr>
+			<th>Id</th>
+			<th>firstName</th>
+			<th>lastName</th>
+			<th>Mobile</th>
+			<th>city</th>
+		
+		</tr>
+		<tr ng-repeat="person in persons|orderBy:'Id'">
+			<td>{{person.Id}}</td>
+			<td>{{person.firstName}}</td>
+			<td>{{person.lastName}}</td>
+			<td>{{person.mobile}}</td>
+			<td>{{person.city}}</td>
+		</tr>
+	
+	</table>
+</div>
+</body>
+</html>
