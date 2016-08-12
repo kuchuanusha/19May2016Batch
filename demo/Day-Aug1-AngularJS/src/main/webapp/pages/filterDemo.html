@@ -1,0 +1,47 @@
+<!DOCTYPE  html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Dependency Injection</title>
+<script type="text/javascript" src="../script/angular.min.js"></script>
+<script type="text/javascript" src="../script/appConfig.js"></script>
+<script type="text/javascript" src="../script/appFilterCtrl.js"></script>
+
+</head>
+<body ng-app="myApp">
+<div ng-controller="fCtrl">
+
+	<!-- <h1>{{firstName | uppercase}}</h1>
+	<h1>{{firstName | lowercase}}</h1> -->
+	
+	Enter Your Character: 
+	<input type="text" name="filterText" ng-model="filtertxt" size="20">
+	
+	<ul>
+		<li ng-repeat="userName in names | filter: filtertxt ">
+		{{userName}}
+		</li>
+	
+	</ul>
+	
+	
+	
+	<table>
+		<tr>
+			<th>EmployeeId</th>
+			<th>EmployeeName</th>
+		</tr>
+		<tr ng-repeat="emp in employees|orderBy:'empName'">
+			<td>{{emp.empId}}</td>
+			<td>{{emp.empName}}</td>
+		</tr>
+	
+	</table>
+	
+	
+	
+
+</div>
+
+</body>
+</html>

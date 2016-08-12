@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Angular Init</title>
+<script type="text/javascript" src="../script/angular.min.js"></script>
+<script type="text/javascript" src="../script/appConfig.js"></script>
+<script type="text/javascript" src="../script/appCtrl.js"></script>
+
+</head>
+<body ng-app="myApp" ng-init="firstName='tom';lastName='Jerry';weekdays=['sun','mon','tue','wed','thr','fri','sat'];
+				book={bookId:101,bookName:'Java Complete Ref',author:'Robert',price:2300}">
+<div style="margin-left:400px; font-size: 20px; font-weight: bold; color: blue;">
+
+FirstName: {{firstName}} <br>
+LastName: {{lastName}}
+<br>
+
+WeedEnd : {{weekdays[0] }}
+
+<ul>
+	<li ng-repeat='day in weekdays'>
+	{{day}}
+	</li>
+</ul>
+<div style=" font-size: 20px; font-weight: bold;color:black; ">
+
+<h1>Book details</h1>
+
+<h2>BookId:<span ng-bind="book.bookId"></span></h2>
+<h2>BookName:<span ng-bind="book.bookName"></span></h2>
+<h2>Author:<span ng-bind="book.author"></span></h2>
+<h2>price:<span ng-bind="book.price"></span></h2>
+
+
+
+</div>
+
+<div ng-controller="myCtrl">
+<input type="button" name="greetings" value="greetings" ng-click="myFunc()">
+
+
+</div>
+
+
+</div>
+</body>
+</html>

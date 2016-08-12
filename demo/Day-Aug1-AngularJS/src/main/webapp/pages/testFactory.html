@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Dependency Injection</title>
+<script type="text/javascript" src="../script/angular.min.js"></script>
+<script type="text/javascript" src="../script/appConfig.js"></script>
+<script type="text/javascript" src="../script/appCtrl.js"></script>
+
+</head>
+<body ng-app="myApp">
+<div ng-controller="mathCtrl">
+
+<div>
+	<label>Enter Your Number:</label>
+	<input type="text" ng-model="myNum" size="20">
+	<input type="button" name="calculate" value="Calculate" ng-click="calculate()">
+</div>
+
+<!-- Answer: <input type="text" ng-model="result" size=20>  -->
+
+<!-- <h1>Answer  : {{calculate}}</h1>  -->
+
+</div>
+
+</body>
+</html>
